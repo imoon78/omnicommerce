@@ -47,6 +47,8 @@ try:
                 i=i+1
             except Exception as ex:
                 st.text(ex)
+                
+        st.markdown("""---""")
         st.json(recommend_list)
 except Exception as ex:
     st.text(ex)
