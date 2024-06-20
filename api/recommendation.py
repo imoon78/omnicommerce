@@ -1,6 +1,8 @@
 import streamlit as st
 import urllib3
 
+# test url : https://omnicommerce-ktweaetjdkpsnzchqx2dr8.streamlit.app
+
 st.header = "유사상품 추천"
 
 prd_no = st.text_input("유사상품 추천 TEST", placeholder="상품번호를 입력하세요")
