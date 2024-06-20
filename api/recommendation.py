@@ -3,10 +3,18 @@ import urllib3
 
 # test url : https://omnicommerce-ktweaetjdkpsnzchqx2dr8.streamlit.app
 
-st.header = "유사상품 추천"
+comtype = st.radio(
+    "유사상품 또는 개인화 추천을 선택하세요",
+    ["유사상품 추천","개인화 추천"]
+)
 
-prd_no = st.text_input("유사상품 추천 TEST", placeholder="상품번호를 입력하세요")
-st.write("입력된 상품번호 : ", prd_no)
+if comtype == "유사상품 추천":
+    placetext = "상품"
+else:
+    placetext = "회원"
+
+prd_no = st.text_input("상품 추천 TEST", placeholder=placetext + "번호를 입력하세요")
+st.write("입력된 " +placetext+ "번호 : ", prd_no)
 
 
 try:
@@ -15,13 +23,16 @@ try:
     oriImage = ""
 
     if prd_no != "":
-        oridata = http.request("GET", "http://apix.halfclub.com/searches/prdList/?keyword=" + prd_no + "&siteCd=1&device=mc").json()
-        #st.json(oridata)
 
-        oriImage = oridata["data"]["result"]["hits"]["hits"][0]["_source"]["appPrdImgUrl"]
-        st.image(oriImage)
+        if comtype == "유사상품 추천":
+            oridata = http.request("GET", "http://apix.halfclub.com/searches/prdList/?keyword=" + prd_no + "&siteCd=1&device=mc").json()
+            oriImage = oridata["data"]["result"]["hits"]["hits"][0]["_source"]["appPrdImgUrl"]
+            st.image(oriImage)
 
-        data = http.request("GET", "http://develop-api.halfclub.com/searches/recommProducts/?prdNo=" + prd_no).json()
+        if comtype == "유사상품 추천":
+            data = http.request("GET", "http://develop-api.halfclub.com/searches/recommProducts/?prdNo=" + prd_no).json()
+        else:
+            data = http.request("GET", "http://develop-api.halfclub.com/searches/personalProducts/?memNo=" + prd_no).json()
         
         recommend_list = data["data"]["productDTOList"]
         #st.json(recommend_list)
