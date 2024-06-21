@@ -45,7 +45,7 @@ try:
         i=0
         for recommend in recommend_list:
             try:
-                recognition_result_container[i%4].image(recommend["appPrdImgUrl"], caption= str(recommend["prdNo"]) + " | "+ str(recommend["dcPrcApp"])).page_link(recommend["appPrdDtlUrl"])
+                recognition_result_container[i%4].image(recommend["appPrdImgUrl"], caption= str(recommend["prdNo"]) + " | "+ str(recommend["dcPrcApp"])).link_button(str(recommend["prdNo"]), str(recommend["appPrdDtlUrl"]))
                 i=i+1
             except Exception as ex:
                 st.text(ex)
