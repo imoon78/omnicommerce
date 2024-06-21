@@ -45,7 +45,7 @@ try:
         i=0
         for recommend in recommend_list:
             try:
-                recognition_result_container[i%4].image(recommend["appPrdImgUrl"], caption= str(recommend["dcPrcApp"]) + "|"+ str(recommend["dcPrcApp"]))
+                recognition_result_container[i%4].image(recommend["appPrdImgUrl"], caption= str(recommend["prdNo"]) + " | "+ str(recommend["dcPrcApp"]))
                 i=i+1
             except Exception as ex:
                 st.text(ex)
