@@ -40,12 +40,16 @@ try:
         recommend_list = data["data"]
         #st.json(recommend_list)
         result_container = st.container()
+        link_container = st.container()
         recognition_result_container = result_container.columns(4)
 
         i=0
         for recommend in recommend_list:
             try:
-                recognition_result_container[i%4].link_button(str(recommend["prdNo"]), str(recommend["appPrdDtlUrl"])).image(recommend["appPrdImgUrl"], caption= str(recommend["prdNo"]) + " | "+ str(format(recommend["dcPrcApp"], ',')) + "원")
+                with recognition_result_container[i%4]:
+                    st.image(recommend["appPrdImgUrl"], caption= str(recommend["prdNo"]) + " | "+ str(format(recommend["dcPrcApp"], ',')) + "원")
+                    with st.container():
+                        st.link_button(str(recommend["prdNo"]), str(recommend["appPrdDtlUrl"]))    
                 i=i+1
             except Exception as ex:
                 st.text(ex)
