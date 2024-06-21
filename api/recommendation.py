@@ -2,6 +2,8 @@ import streamlit as st
 import urllib3
 
 # test url : https://omnicommerce-ktweaetjdkpsnzchqx2dr8.streamlit.app
+# 실행 : streamlit run ./api/recommendation.py
+# 심각 : 356049403
 
 comtype = st.radio(
     "유사상품 또는 개인화 추천을 선택하세요",
@@ -35,7 +37,7 @@ try:
         else:
             data = http.request("GET", "http://develop-api.halfclub.com/searches/personalProducts/?memNo=" + prd_no).json()
         
-        recommend_list = data["data"]["productDTOList"]
+        recommend_list = data["data"]
         #st.json(recommend_list)
         result_container = st.container()
         recognition_result_container = result_container.columns(4)
@@ -43,7 +45,7 @@ try:
         i=0
         for recommend in recommend_list:
             try:
-                recognition_result_container[i%4].image(recommend["productImage"]["basicExtUrl"], caption=recommend["productImage"]["prdNo"])
+                recognition_result_container[i%4].image(recommend["appPrdImgUrl"], caption=recommend["prdNo"])
                 i=i+1
             except Exception as ex:
                 st.text(ex)
