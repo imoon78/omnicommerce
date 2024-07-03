@@ -35,7 +35,7 @@ try:
         if comtype == "유사상품 추천":
             data = http.request("GET", "http://develop-api.halfclub.com/searches/recommProducts/?prdNo=" + prd_no).json()
         else:
-            data = http.request("GET", "http://develop-api.halfclub.com/searches/personalProducts/?memNo=" + prd_no).json()
+            data = http.request("GET", "http://develop-api.halfclub.com/searches/personalProducts/?deviceID=" + prd_no).json()
         
         recommend_list = data["data"]
         #st.json(recommend_list)
